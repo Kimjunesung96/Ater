@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나만의 AI 학습 튜터 - 포트폴리오</title>
+    <style>
+        :root {
+            --sidebar-bg: #2c3e50;
+            --sidebar-text: #ecf0f1;
+            --active-color: #3498db;
+            --main-bg: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-color: #333;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: var(--main-bg);
+            color: var(--text-color);
+        }
+
+        /* === 사이드바 (메뉴) === */
+        aside {
+            width: 250px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            flex-shrink: 0;
+        }
+
+        aside h1 {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid #4b6584;
+            padding-bottom: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav li {
+            margin-bottom: 10px;
+        }
+
+        nav button {
+            width: 100%;
+            background: none;
+            border: none;
+            color: #bdc3c7;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        nav button:hover, nav button.active {
+            background-color: var(--active-color);
+            color: white;
+            font-weight: bold;
+        }
+
+        /* === 메인 콘텐츠 === */
+        main {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        section {
+            display: none; /* 기본적으로 숨김 */
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        section.active {
+            display: block; /* 선택된 항목만 표시 */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            border-bottom: 2px solid var(--active-color);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* 카드 스타일 */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--active-color);
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* 프로젝트 상세 탭 스타일 */
+        .detail-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .detail-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--active-color);
+            background: white;
+            color: var(--active-color);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .detail-btn:hover {
+            background: #e3f2fd;
+        }
+
+        .detail-btn.active {
+            background: var(--active-color);
+            color: white;
+        }
+
+        .sub-content {
+            display: none;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--active-color);
+        }
+        .sub-content.active {
+            display: block;
+        }
+
+        .sub-content h3 {
+            margin-top: 0;
+            color: var(--active-color);
+        }
+
+        /* 기술 스택 태그 */
+        .tech-group {
+            margin-bottom: 20px;
+        }
+        .tech-group h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .tech-tag {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 5px 12px;
+            border-radius: 15px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <h1>나만의 AI 학습 튜터 에이터</h1>
+        <nav>
+            <ul>
+                <li><button onclick="showSection('developer')" class="active">개발자 정보</button></li>
+                <li><button onclick="showSection('motivation')">개발 동기</button></li>
+                <li><button onclick="showSection('project')">프로젝트 상세</button></li>
+                <li><button onclick="showSection('tech')">전체 기술 스택</button></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <section id="developer" class="active">
+            <h2>개발자 정보</h2>
+            <div class="card">
+                <div class="hero-text">
+                    "학습 자료를 분석해 퀴즈와 오답노트를 제공하는 AI 튜터 개발자"
+                </div>
+                
+                <h3>About Me</h3>
+                <p>
+                    저는 사용자의 불편함을 기술로 해결하는 풀스택 개발자입니다. 
+                    특히 생성형 AI 기술을 실생활 문제에 적용하는 데 관심이 많습니다.
+                </p>
+                <p>
+                    이번 프로젝트에서는 방대한 학습 자료(PDF, PPT 등)를 혼자 공부하기 벅찬 학생들을 위해, 
+                    자료를 업로드하면 AI가 내용을 분석해 질의응답과 맞춤형 퀴즈를 제공하는 서비스를 개발했습니다.
+                    한정된 자원 내에서 성능을 최적화하기 위해 멀티스레딩과 캐싱 전략을 주도적으로 도입했습니다.
+                </p>
+
+                <div class="contact-info">
+                    <p><strong>이름:</strong> 김준성</p>
+                    <p><strong>Email:</strong> skrktodu@naver.com</p>
+                    <p><strong>GitHub:</strong> <a href="https://github.com/Kimjunesung96" target="_blank">https://github.com/Kimjunesung96</a>
+                    </p>
+                 </div>
+            </div>
+        </section>
+
+        <section id="motivation">
+            <h2>개발 동기</h2>
+            <div class="card">
+                <h3>😩 문제점</h3>
+                <p>대학생들이 수많은 PDF와 강의 자료를 효율적으로 복습하기 어렵다는 점이 문제였습니다.</p>
+                <br>
+                <h3>💡 해결 방안</h3>
+                <p>단순 검색을 넘어, 자료 내용을 바탕으로 스스로를 테스트(퀴즈)하고 취약점을 분석해주는 능동적인 학습 도구가 필요했습니다.</p>
+            </div>
+        </section>
+
+        <section id="project">
+            <h2>프로젝트 상세</h2>
+            
+            <div class="detail-tabs">
+                <button class="detail-btn active" onclick="showSubContent('ocr')">1. 최적화 & 성능</button>
+                <button class="detail-btn" onclick="showSubContent('quiz')">2. 개인화 학습</button>
+                <button class="detail-btn" onclick="showSubContent('ux')">3. UX & 확장성</button>
+            </div>
+
+            <div id="ocr" class="sub-content active">
+                <h3>⚡ 성능 최적화: OCR 캐싱 & 멀티스레딩</h3>
+                <p><strong>문제:</strong> 고용량 PDF나 이미지 스캔 파일 업로드 시 텍스트 추출(OCR) 시간이 오래 걸려 사용자 이탈 우려가 있었습니다.</p>
+                <p><strong>해결:</strong> Python의 <code>threading</code>을 활용한 <strong>백그라운드 처리</strong>와 JSON 기반의 <strong>영구 캐시 시스템</strong>을 도입했습니다.</p>
+                <p>
+                    결과적으로 최초 1회만 분석하면, 이후에는 <strong>'0초(Zero Latency)'</strong>로 즉시 내용을 불러오도록 구현하여 시스템 효율을 극대화했습니다.
+                </p>
+            </div>
+
+            <div id="quiz" class="sub-content">
+                <h3>🎓 개인화 학습: RAG 기반 오답 분석</h3>
+                <p><strong>기능:</strong> 단순 질의응답을 넘어, <strong>'퀴즈 생성 → 채점 → 오답노트 → 취약점 분석'</strong>의 4단계 학습 사이클을 구현했습니다.</p>
+                <p>
+                    사용자가 틀린 문제 데이터를 <code>odapnote.json</code>에 누적 기록하고, 
+                    Gemini Pro 모델이 이를 분석하여 사용자의 약점을 보완하는 맞춤형 문제를 다시 출제하는 <strong>적응형 학습(Adaptive Learning)</strong> 로직을 개발했습니다.
+                </p>
+            </div>
+
+            <div id="ux" class="sub-content">
+                <h3>🚀 UX 개선: 스트리밍 & 멀티 포맷</h3>
+                <p><strong>Streaming (SSE):</strong> 긴 답변을 기다리는 지루함을 없애기 위해, Generator와 Fetch API 스트림을 연동하여 <strong>실시간으로 답변이 타이핑되는 효과</strong>를 구현했습니다.</p>
+                <p><strong>Floating Widget:</strong> 학습 흐름을 끊지 않도록, 화면 구석에 <strong>'보조 질문창(Floating Widget)'</strong>을 구현하여 메인 컨텍스트를 유지하며 가벼운 질문이 가능하도록 했습니다.</p>
+                <p><strong>Format Support:</strong> <code>PyMuPDF</code>(PDF), <code>python-pptx</code>(PPT), <code>openpyxl</code>(Excel) 등 다양한 라이브러리를 통합하여 학습 자료의 포맷 제약을 없앴습니다.</p>
+            </div>
+        </section>
+
+        <section id="tech">
+            <h2>전체 기술 스택</h2>
+            <div class="card">
+                <div class="tech-group">
+                    <h3>Frontend</h3>
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">Vanilla JS (Fetch API)</span>
+                    <span class="tech-tag">Streaming UI</span>
+                </div>
+
+                <div class="tech-group">
+                    <h3>Backend</h3>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Flask</span>
+                    <span class="tech-tag">Jinja2</span>
+                </div>
+
+                <div class="tech-group">
+                    <h3>AI & Data</h3>
+                    <span class="tech-tag">Google Gemini API</span>
+                    <span class="tech-tag">RAG</span>
+                    <span class="tech-tag">PyMuPDF</span>
+                    <span class="tech-tag">Tesseract (OCR)</span>
+                </div>
+
+                <div class="tech-group">
+                    <h3>Tools</h3>
+                    <span class="tech-tag">Git</span>
+                    <span class="tech-tag">Visual Studio Code</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // [기능] 메뉴 클릭 시 해당 섹션 보여주기
+        function showSection(sectionId) {
+            // 1. 모든 섹션 숨기기
+            document.querySelectorAll('main section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            // 2. 선택한 섹션 보이기
+            document.getElementById(sectionId).classList.add('active');
+
+            // 3. 메뉴 버튼 스타일 업데이트
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // 클릭된 메뉴 버튼 하이라이트
+            const menus = ['developer', 'motivation', 'project', 'tech'];
+            const index = menus.indexOf(sectionId);
+            if(index !== -1) {
+                document.querySelectorAll('nav button')[index].classList.add('active');
+            }
+        }
+
+        // [기능] 프로젝트 상세 내부 탭 전환 (버튼 3개 대응 수정됨)
+        function showSubContent(contentId) {
+            // 1. 모든 탭 내용 숨기기
+            document.querySelectorAll('.sub-content').forEach(div => div.classList.remove('active'));
+            // 2. 선택한 탭 내용 보이기
+            document.getElementById(contentId).classList.add('active');
+
+            // 3. 버튼 스타일 업데이트
+            document.querySelectorAll('.detail-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // 클릭된 탭 버튼 하이라이트
+            const tabs = ['ocr', 'quiz', 'ux'];
+            const index = tabs.indexOf(contentId);
+            if(index !== -1) {
+                document.querySelectorAll('.detail-btn')[index].classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
